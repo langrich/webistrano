@@ -22,7 +22,13 @@
         <td><%= link_to deployment.stage.name, project_stage_path(deployment.stage.project, deployment.stage) %></td>
         <td><%= deployment.task %></td>
         <td><%= truncate(deployment.revision, 6) rescue "" %></td>
-        <td><%= link_to deployment.user.login, user_path(deployment.user) %></td>
+        <td>
+          <% if deployment.user %>
+            <%= link_to deployment.user.login, user_path(deployment.user) %>
+          <% else %>
+            Removed user
+          <% end %>
+        </td>
         <td><%= deployment.created_at.to_s(:log) %></td>
         <td><%= distance_of_time_in_words(deployment.created_at, deployment.completed_at, true) rescue "" %></td>
         <td><%= deployment.description %></td>
